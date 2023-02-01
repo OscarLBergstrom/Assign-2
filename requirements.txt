@@ -1,1 +1,2 @@
+pyngrok==5.2.1
 pytest==7.2.1
