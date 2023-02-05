@@ -13,9 +13,14 @@ def recieve_post():
     if request.method == 'POST':
         data = request.json
         try:
+            repo = data["repository"]
+            repo_name = repo["name"]
+            ref = data["ref"]
+            branch = ref[len("refs/heads/"):len(ref)] # Provides the name of the branch
+
             for commit in data["commits"]:
                 commit_url = commit["url"]
-                build(commit_url)
+                build(branch, repo_name)
                 test(commit_url)
         except:
             response = make_response("Fail")
@@ -26,7 +31,7 @@ def recieve_post():
         response.status_code = 200
         return response
 
-def build(data):
+def build(branch, repo_name):
     pass
 def test(data):
     pass  
