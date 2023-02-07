@@ -1,12 +1,15 @@
 from flask import Flask, make_response
 from flask_mongoengine import MongoEngine
+import pdb
 
 
 app = Flask(__name__)
-db = MongoEngine()
-db.init_app(app)
+
 
 app.config["MONGODB_HOST"] = "mongodb+srv://user123:Sommar13@cluster0.r1nafxc.mongodb.net/?retryWrites=true&w=majority"
+
+db = MongoEngine()
+db.init_app(app)
 
 
 class GithubSchema(db.Document):
