@@ -29,10 +29,13 @@ class GithubSchema(db.Document):
 
 @app.route('/api/test', methods=['POST'])
 def db_test():
-    result = GithubSchema(commit="commit1", identifier="id1",
-                          build_date="bd1", build_logs="bl1")
-    result.save()
-    return make_response("", 201)
+    try:
+        result = GithubSchema(commit="commit1", identifier="id1",
+                              build_date="bd1", build_logs="bl1")
+        result.save()
+        return make_response("", 201)
+    except:
+        return make_response("Could not upload to database", 500)
 
 
 if __name__ == "__main__":
