@@ -14,16 +14,20 @@ db.init_app(app)
 
 class GithubSchema(db.Document):
     commit = db.StringField()
-    identifier = db.StringField()
+    group = db.StringField()
     build_date = db.StringField()
-    build_logs = db.StringField()
+    log_test = db.StringField()
+    log_build = db.StringField()
+    log_installation = db.StringField()
 
     def to_json(self):
         return {
             "commit": self.commit,
-            "identifier": self.identifier,
+            "group": self.group,
             "build_date": self.build_date,
-            "build_log": self.build_logs
+            "log_test": self.log_test,
+            "log_build": self.log_build,
+            "log_installation": self.log_installation
         }
 
 
@@ -31,12 +35,12 @@ class GithubSchema(db.Document):
 def db_test():
     if request.method == 'POST':
         try:
-            result = GithubSchema(commit="commit1", identifier="id1",
-                                  build_date="bd1", build_logs="bl1")
+            result = GithubSchema(commit=request.get_json(force=True)["commit"], group=request.get_json(force=True)["group"], build_date=request.get_json(force=True)[
+                                  "build_date"], log_test=request.get_json(force=True)["log_test"], log_build=request.get_json(force=True)["log_build"], log_installation=request.get_json(force=True)["log_installation"])
             result.save()
             return make_response("", 201)
-        except:
-            return make_response("Could not upload to database", 500)
+        except Exception as e:
+            make_response(e, 500)
 
     elif request.method == 'GET':
         result = []
