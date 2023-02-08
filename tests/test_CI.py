@@ -4,6 +4,34 @@ import requests
 
 
 data_complete = {
+    "repository": {
+    "id": 596040156,
+    "node_id": "R_kgDOI4bZ3A",
+    "name": "Test_repo",
+    "full_name": "OscarLBergstrom/Test_repo",
+    "private": False,
+    "owner": {
+      "name": "OscarLBergstrom",
+      "email": "64008380+OscarLBergstrom@users.noreply.github.com",
+      "login": "OscarLBergstrom",
+      "id": 64008380,
+      "node_id": "MDQ6VXNlcjY0MDA4Mzgw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64008380?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/OscarLBergstrom",
+      "html_url": "https://github.com/OscarLBergstrom",
+      "followers_url": "https://api.github.com/users/OscarLBergstrom/followers",
+      "following_url": "https://api.github.com/users/OscarLBergstrom/following{/other_user}",
+      "gists_url": "https://api.github.com/users/OscarLBergstrom/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/OscarLBergstrom/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/OscarLBergstrom/subscriptions",
+      "organizations_url": "https://api.github.com/users/OscarLBergstrom/orgs",
+      "repos_url": "https://api.github.com/users/OscarLBergstrom/repos",
+      "events_url": "https://api.github.com/users/OscarLBergstrom/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/OscarLBergstrom/received_events",
+      "type": "User",
+      "site_admin": False
+    }},
     "ref": "refs/heads/test_branch",
     "commits":[{
     "id": "7ce2a310efa9b56d54bb136e6961724eec1239ad",
