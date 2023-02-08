@@ -1,26 +1,57 @@
 import subprocess
-import os
-import pdb
 from pathlib import Path
 import yaml
 from yaml.loader import SafeLoader
 
 
+"""
+Summary
+This program is a part of a continuous integration platform and its purpose is to clone, build, and test a git repository.
+"""
+
+
+"""
+clone_repo
+This function clones the specified *git_repo* and *branch*
+"""
 def clone_repo(git_repo, branch):
     subprocess.run(["git","clone","-b", branch, "https://github.com/" + git_repo + ".git"])
 
+"""
+install_requirements
+This function installs the specified libraries from a requirements.txt file, the *command* to install the libraries is specified in the config.yml file.
+"""
 def install_requirements(command, repo):
-    code = subprocess.run(command + [repo + "/requirements.txt"]).returncode
-    return code
+    return subprocess.run(command + [repo + "/requirements.txt"]).returncode
+
+"""
+run_command
+This function runs a command in the terminal
+"""
 def run_command(command, repo):
     return subprocess.run(command + [repo]).returncode
 
+"""
+repo_test
+This function runs unit test in the /tests folder, the *command* used to run the tests is specified in the config.yml file.
+"""
 def repo_test(command, repo):
     return subprocess.run(command + [repo + "/tests"]).returncode
 
+"""
+delete_repo
+This function deletes the cloned git repo.
+"""
 def delete_repo(repo):
     subprocess.run(["rm","-rf", repo])
-    
+
+"""
+initialization
+This command clones the specified *repo* and *branch* to the directory *dir*, it reads appropriate commands from the config.yml file
+and calls the other methods to install requirements, unit test, compile code and finally delete the repo.
+
+It returns the exit codes for installing libraries, compiling code, and running unit tests.
+"""
 def initialization(repo, branch, dir, config_file):
     path = Path(config_file)
     if not path.is_file():
@@ -28,7 +59,9 @@ def initialization(repo, branch, dir, config_file):
     
     # Open the file and load the file
     clone_repo(repo, branch)
-    exitcode = -1
+    install_code = -1
+    build_code = -1 
+    test_code = -1
     with open(config_file) as f:
         data = yaml.load(f, Loader=SafeLoader)
         
@@ -58,5 +91,4 @@ def initialization(repo, branch, dir, config_file):
             
         
     delete_repo(dir)
-    #pdb.set_trace()
     return test_code, install_code, build_code
