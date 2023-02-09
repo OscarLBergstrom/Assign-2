@@ -37,7 +37,11 @@ class GithubSchema(db.Document):
 
 @app.route('/api/test', methods=['POST', 'GET'])
 def db_test():
-    """Handles post and get request to the database"""
+    """
+    Handles post and get request to the database.
+    For post it returns code 201 if the object was created.
+    For get it responds with json array containing all the objects in the database.
+    """
     if request.method == 'POST':
         try:
             result = GithubSchema(commit=request.get_json(force=True)["commit"], group=request.get_json(force=True)["group"], build_date=request.get_json(force=True)[
@@ -56,31 +60,31 @@ def db_test():
 
 @app.route('/')
 def my_flask_application():
-    """Home page"""
+    """
+    Home page
+    """
     return 'Welcome to the worlds best CI!! :D'
 
 
 @app.route('/payload', methods=["POST"])
 def recieve_post():
-    """Handles post requetst from github webhook"""
+    """
+    Handles post requetst from github webhook.
+    Runs the tests and builds the commit's which are part of the push which caused the webhook to trigger.
+    Then sends a email with results to the user who did the commit. 
+    """
     if request.method == 'POST':
         data = request.json
         try:
             repo = data["repository"]
             repo_name = repo["full_name"]
-            # print(repo_name)
             ref = data["ref"]
             dir = repo["name"]
-            # print(dir)
-            # Provides the name of the branch
             branch = ref[len("refs/heads/"):len(ref)]
             config_file = "config.yml"
-
             for commit in data["commits"]:
                 commit_id = commit["id"]
-                #commit_url = commit["url"]
                 user_email = commit["author"]["email"]
-                # print(user_email)
                 results = initialization(repo_name, branch, dir, config_file)
                 # save in the database
                 try:
