@@ -52,13 +52,19 @@ The CI is in the file called Flask_application.py, the tests are in the folder t
 
 # Statement of contribution
 
-Oscar Bergström, Jacob Trossing & Filip Wetterdal Todorociv have mainly worked on [Issue #5](https://github.com/OscarLBergstrom/Assign-2/issues/5). Setting up the server and handling repsonses.
+Jacob Trossing has worked on [Issue #5](https://github.com/OscarLBergstrom/Assign-2/issues/5) & [Issue #6](https://github.com/OscarLBergstrom/Assign-2/issues/6).
 
-Felipe Oliver & Gustaf Johansson have mainly worked on [Issue #13](https://github.com/OscarLBergstrom/Assign-2/issues/13) and [Issue #2](https://github.com/OscarLBergstrom/Assign-2/issues/2). Develop the Build function and cloning the repository. 
+Filip Wetterdal has worked on [Issue #5](https://github.com/OscarLBergstrom/Assign-2/issues/5) & [Issue #15](https://github.com/OscarLBergstrom/Assign-2/issues/15).
 
-Oscar Bergström has also worked on [Issue #9](https://github.com/OscarLBergstrom/Assign-2/issues/9) writing the README.md.
+Oscar Bergström has worked on [Issue #3](https://github.com/OscarLBergstrom/Assign-2/issues/3), [Issue #5](https://github.com/OscarLBergstrom/Assign-2/issues/5), [Issue #9](https://github.com/OscarLBergstrom/Assign-2/issues/9) & [Issue #19](https://github.com/OscarLBergstrom/Assign-2/issues/19).
+
+Felipe Oliver has worked on [Issue #1](https://github.com/OscarLBergstrom/Assign-2/issues/1), [Issue #2](https://github.com/OscarLBergstrom/Assign-2/issues/2), [Issue #8](https://github.com/OscarLBergstrom/Assign-2/issues/8), [Issue #12](https://github.com/OscarLBergstrom/Assign-2/issues/12), [Issue #13](https://github.com/OscarLBergstrom/Assign-2/issues/13), [Issue #14](https://github.com/OscarLBergstrom/Assign-2/issues/14) & [Issue #15](https://github.com/OscarLBergstrom/Assign-2/issues/15).
+
+Gustaf Johansson has worked on [Issue #1](https://github.com/OscarLBergstrom/Assign-2/issues/1), [Issue #2](https://github.com/OscarLBergstrom/Assign-2/issues/2), [Issue #8](https://github.com/OscarLBergstrom/Assign-2/issues/8), [Issue #12](https://github.com/OscarLBergstrom/Assign-2/issues/12), [Issue #13](https://github.com/OscarLBergstrom/Assign-2/issues/13), [Issue #14](https://github.com/OscarLBergstrom/Assign-2/issues/14), [Issue #15](https://github.com/OscarLBergstrom/Assign-2/issues/15) & [Issue #18](https://github.com/OscarLBergstrom/Assign-2/issues/18).
 
 # Notifications
+
+The notifications are sent through email when the code is pushed to a Github repo with the CI added to it. In the version control the user can see different versions through an url to a website.
 
 # SEMAT
 The current state that the team is in is Collaborating.
@@ -70,3 +76,6 @@ The communication within the team is open and honest. The slack is a open channe
 The team is focused on achieving the team missions. The team works togheter towards a clear goal of finishing the assignments. 
 
 The team members know and trust each other. Throughout the past weeks the team members have gotten to know each other and trust each others strenghts. 
+
+# What the team has done for P+
+For P+ the team has made sure to link all commits to an issue. We have also implemented version control for the CI.
