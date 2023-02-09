@@ -107,7 +107,7 @@ def display_build(id):
             build = obj
     if build is not None:
         commit_id = build.commit
-        response += "Commit " + commit_id + " was built on: " + build.commit + "\n"
+        response += "Commit " + commit_id + " was built on: " + build.build_date + "\n"
         response += "The results where: <br>"
         response += "Build: "
         if build.log_build == "0":

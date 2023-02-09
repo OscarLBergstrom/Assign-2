@@ -5,7 +5,6 @@ from flask import Flask
 import requests
 import mail
 from Flask_application import app
-from flask_mongoengine import MongoEngine
 
 """
 This tests if the cloning function works properly
