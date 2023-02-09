@@ -4,7 +4,7 @@ A simple CI.
 
 ## How to install
 
-Steps 1-X can be followed more thourghly through this guide.
+Steps 1-2 can be followed more thourghly through this [guide](https://phoenixnap.com/kb/install-flask).
 
 1. Install and set up a venv.
 
