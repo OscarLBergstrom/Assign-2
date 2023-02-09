@@ -240,12 +240,12 @@ def test_display_builds(client):
     response = client.get("/build")
     assert b"All builds:" in response.data
     ngrok_address = "https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
-    assert bytes("Build 1 can be found at " +
-                 ngrok_address + "/commits/1", "utf-8") in response.data
+    assert bytes("Build 63e4b8aeda0c14382f8ec65e can be found at " +
+                 ngrok_address + "/commits/63e4b8aeda0c14382f8ec65e", "utf-8") in response.data
 
 
 def test_display_build_found(client):
-    response = client.get("/build/63e3a9ed97645c6e34ddd5ea")
+    response = client.get("/build/63e4b8aeda0c14382f8ec65e")
     assert b"Build successfull" in response.data
     assert b"Commit 1 was built on: 12/12/12" in response.data
 
