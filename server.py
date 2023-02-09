@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, make_response, request
 from flask_mongoengine import MongoEngine
-from mail import notify_build_test
+from notify import notify_build_test
 from build_test import initialization
 import requests
 from datetime import date

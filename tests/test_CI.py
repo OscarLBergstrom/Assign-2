@@ -4,7 +4,7 @@ from build_test import *
 import pdb
 from flask import Flask
 import requests
-import mail
+import notify
 
 
 def test_clone_repo():
