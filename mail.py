@@ -65,7 +65,3 @@ def send_email(message):
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
         server.login(server_email, password)
         server.sendmail(server_email, user_email, message.as_string())
-
-       
-
-notify_build_test("mailingtesing@gmail.com",[0,0,-1],"56sr9325tl68ka_dsn4uyv")
