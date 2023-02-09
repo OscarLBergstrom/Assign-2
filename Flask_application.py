@@ -6,12 +6,14 @@ from build_test import initialization
 app = Flask(__name__)
 
 app.config["MONGODB_HOST"] = "mongodb+srv://user123:Sommar13@cluster0.r1nafxc.mongodb.net/?retryWrites=true&w=majority"
-
 db = MongoEngine()
 db.init_app(app)
 
 
 class GithubSchema(db.Document):
+    """
+    Schema for build results in the DB
+    """
     commit = db.StringField()
     group = db.StringField()
     build_date = db.StringField()
@@ -32,6 +34,7 @@ class GithubSchema(db.Document):
 
 @app.route('/api/test', methods=['POST', 'GET'])
 def db_test():
+    """Handles post and get request to the database"""
     if request.method == 'POST':
         try:
             result = GithubSchema(commit=request.get_json(force=True)["commit"], group=request.get_json(force=True)["group"], build_date=request.get_json(force=True)[
@@ -50,11 +53,13 @@ def db_test():
 
 @app.route('/')
 def my_flask_application():
+    """Home page"""
     return 'Welcome to the worlds best CI!! :D'
 
 
 @app.route('/payload', methods=["POST"])
 def recieve_post():
+    """Handles post requetst from github webhook"""
     if request.method == 'POST':
         data = request.json
         try:
