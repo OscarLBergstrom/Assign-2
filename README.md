@@ -15,7 +15,7 @@ Steps 1-2 can be followed more thourghly through this [guide](https://phoenixnap
 4. run flask on the file Flask_application.
 
 ```
-run flask
+flask run
 ```
 
 5. Take the localhost link given and run it through ngrok with 
