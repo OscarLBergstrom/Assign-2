@@ -2,7 +2,7 @@ from flask import Flask, jsonify, make_response, request
 from flask_mongoengine import MongoEngine
 
 app = Flask(__name__)
-
+ngrok_address = "https://8cb3-2001-6b0-1-1041-b50e-adce-a282-b70e.eu.ngrok.io"
 app.config["MONGODB_HOST"] = "mongodb+srv://user123:Sommar13@cluster0.r1nafxc.mongodb.net/?retryWrites=true&w=majority"
 
 db = MongoEngine()
@@ -88,10 +88,10 @@ def display_builds():
     builds = []
     for obj in GithubSchema.objects:
         builds.append(obj)
-    builds = jsonify(builds)
-
+    
+    build_id = build.id
     for build in builds:
-        response += "Build " + build["_id"]["$oid"] + " can be found at " + ngrok_address+ "/commits/" + build["_id"]["$oid"] +"\n"
+        response += "Build " + build_id + " can be found at " + ngrok_address+ "/commits/" + build_id +"\n"
     return response
 
 
@@ -103,25 +103,24 @@ def display_build(id):
     response = ""
     build = None
     for obj in GithubSchema.objects:
-        if obj["_id"]["$oid"] == id:
+        if obj.id == id:
             build = obj
-    build = jsonify(build)
     if build is not None:
-        commit_id = build["commit"]
-        response += "Commit " + commit_id + " was built on: " + build["build_date"] + "\n"
+        commit_id = build.commit
+        response += "Commit " + commit_id + " was built on: " + build.commit + "\n"
         response += "The results where: \n"
         response += "Build: "
-        if build["log_build"]=="0":
+        if build.log_build =="0":
             response += "Build successfull"
         else:
             response += "Build failed"
         response += "\nInstallation: "
-        if build["log_installation"]=="0":
+        if build.log_installation=="0":
             response += "Installation successfull"
         else:
             response += "Installation failed"
         response += "\nTests: "
-        if build["log_test"]=="0":
+        if build.log_test=="0":
             response += "Tests successfull"
         else:
             response += "Tests failed"
