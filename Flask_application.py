@@ -2,6 +2,9 @@ from flask import Flask, jsonify, make_response, request
 from flask_mongoengine import MongoEngine
 from mail import notify_build_test
 from build_test import initialization
+import requests
+from datetime import date
+import pdb
 
 app = Flask(__name__)
 
@@ -78,9 +81,15 @@ def recieve_post():
                 #commit_url = commit["url"]
                 user_email = commit["author"]["email"]
                 # print(user_email)
-                result = initialization(repo_name, branch, dir, config_file)
-                # print(result)
-                notify_build_test(user_email, result, commit_id)
+                results = initialization(repo_name, branch, dir, config_file)
+                # save in the database
+                try:
+                    result = GithubSchema(commit=str(commit_id), group=repo_name, build_date=str(date.today()), log_test=str(results[0]), log_build=str(results[2]), log_installation=str(results[1]))
+                    result.save()
+                except Exception as e:
+                    print(e)
+                # notify user of the result of the testing, compilation and installation
+                notify_build_test(user_email, results, commit_id)
         except:
 
             response = make_response("Fail")
@@ -94,11 +103,3 @@ def recieve_post():
 
 if __name__ == "__main__":
     app.run()
-
-
-def build(branch, repo_name):
-    pass
-
-
-def test(data):
-    pass
