@@ -55,7 +55,7 @@ def test_exception_installation():
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
-    config_file = 'config_example_noinstall.yml'
+    config_file = 'yml_configs/config_example_noinstall.yml'
     with pytest.raises(Exception):
         codes = initialization(repo, branch, dir, config_file)
     
@@ -66,7 +66,7 @@ def test_exception_unittest():
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
-    config_file = 'config_example_notest.yml'
+    config_file = 'yml_configs/config_example_notest.yml'
     with pytest.raises(Exception):
         codes = initialization(repo, branch, dir, config_file)
 
@@ -77,7 +77,7 @@ def test_exception_buildandsyntax():
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
-    config_file = 'config_example_nobuildandsyntax.yml'
+    config_file = 'yml_configs/config_example_nobuildandsyntax.yml'
     with pytest.raises(Exception):
         codes = initialization(repo, branch, dir, config_file)
 
@@ -88,7 +88,7 @@ def test_no_exception():
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
-    config_file = 'config_example.yml'
+    config_file = 'yml_configs/config_example.yml'
     codes = initialization(repo, branch, dir, config_file)
     assert codes == (2, 0, 0)
    
