@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, make_response, request
 from flask_mongoengine import MongoEngine
-from build_test import initialization
 from mail import notify_build_test
+from build_test import initialization
+import requests
 from datetime import date
+import pdb
 
 app = Flask(__name__)
 ngrok_address = "https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
@@ -65,7 +67,7 @@ def recieve_post():
             dir = repo["name"]
             # Provides the name of the branch
             branch = ref[len("refs/heads/"):len(ref)]
-            config_file = "config_example.yml"  # change to config
+            config_file = "config.yml"
 
             for commit in data["commits"]:
                 commit_id = commit["id"]
@@ -82,6 +84,7 @@ def recieve_post():
                 # notify user of the result of the testing, compilation and installation
                 notify_build_test(user_email, results, commit_id)
         except:
+
             response = make_response("Fail")
             response.status_code = 400
             return response
@@ -145,5 +148,5 @@ def display_build(id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
     
