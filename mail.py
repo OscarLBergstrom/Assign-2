@@ -22,7 +22,8 @@ def generate_build_test_message(user_email, result, commit_id):
     if test_code == 0:
         body += "All test passed"
     if test_code == 1:
-        body += "One or more test cases failed"
+        body += "One or more test cases failed:\n"
+        body += result[3]
     if test_code == 2:
         body += "Excecution was interupted by user"
     if test_code == 3:

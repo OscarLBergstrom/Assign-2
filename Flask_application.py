@@ -4,7 +4,6 @@ from mail import notify_build_test
 from build_test import initialization
 import requests
 from datetime import date
-import pdb
 
 app = Flask(__name__)
 
@@ -63,23 +62,19 @@ def recieve_post():
         try:
             repo = data["repository"]
             repo_name = repo["full_name"]
-            # print(repo_name)
             ref = data["ref"]
             dir = repo["name"]
-            # print(dir)
             # Provides the name of the branch
             branch = ref[len("refs/heads/"):len(ref)]
             config_file = "config.yml"
 
             for commit in data["commits"]:
                 commit_id = commit["id"]
-                #commit_url = commit["url"]
                 user_email = commit["author"]["email"]
-                # print(user_email)
                 results = initialization(repo_name, branch, dir, config_file)
                 # save in the database
                 try:
-                    result = GithubSchema(commit=str(commit_id), group=repo_name, build_date=str(date.today()), log_test=str(results[0]), log_build=str(results[2]), log_installation=str(results[1]))
+                    result = GithubSchema(commit=str(commit_id), group=repo_name, build_date=str(date.today()), log_test=str(results[0]), log_build=str(results[2]), log_installation=str(results[1]), test_logs=results[3])
                     result.save()
                 except Exception as e:
                     print(e)
