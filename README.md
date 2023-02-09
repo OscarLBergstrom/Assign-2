@@ -2,6 +2,21 @@
 
 A simple CI written in python 3.8.10
 
+## Steps for TA to grade
+
+Steps 1-2 can be followed more thourghly through this [guide](https://phoenixnap.com/kb/install-flask).
+
+1. Install and set up a venv.
+
+2. Install flask.
+
+3. Clone the repo.
+
+4. Make a change on main or assessment, commit & push that change.
+
+5. Check your email connected to your Github account.
+
+
 ## How to install
 
 Steps 1-2 can be followed more thourghly through this [guide](https://phoenixnap.com/kb/install-flask).
