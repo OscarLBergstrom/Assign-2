@@ -69,11 +69,8 @@ def recieve_post():
 
             for commit in data["commits"]:
                 commit_id = commit["id"]
-                print("commit id ", commit_id)
                 user_email = commit["author"]["email"]
-                print("email ", user_email)
                 results = initialization(repo_name, branch, dir, config_file)
-                print("results1 ", results)
                 # save in the database
                 try:
                     result = GithubSchema(commit=str(commit_id), group=repo_name, build_date=str(date.today(
@@ -149,11 +146,4 @@ def display_build(id):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-def build(branch, repo_name):
-    pass
-
-
-def test(data):
-    pass
+    
