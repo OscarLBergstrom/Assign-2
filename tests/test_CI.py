@@ -6,46 +6,52 @@ from flask import Flask
 import requests
 import mail
 
-"""
-This tests if the cloning function works properly
-"""
+
 def test_clone_repo():
+    """
+    This tests if the cloning function works properly
+    """
     clone_repo("OscarLBergstrom/Group-13", "testfest")
     path = Path('Group-13')
     assert path.exists() == True
 
-"""
-This tests if installation of required libraries works properly
-"""
+
 def test_installation():
+    """
+    This tests if installation of required libraries works properly
+    """
     code = install_requirements(['pip', 'install', '-r'], "Group-13")
     assert code == 0
 
-"""
-This tests whether compilation/syntax testing is working properly
-"""
+
 def test_syntax():
+    """
+    This tests whether compilation/syntax testing is working properly
+    """
     code = run_command(['python', '-m', 'compileall'], "Group-13")
     assert code == 0
 
-"""
-This tests if the automatic unit testing functionality is working.
-"""
+
 def test_testing():
+    """
+    This tests if the automatic unit testing functionality is working.
+    """
     code = repo_test(['python', '-m', 'pytest'], "Group-13")
     assert code == 2
-"""
-This tests if the program successfully deletes the repository
-"""
+
 def test_delete_repo():
+    """
+    This tests if the program successfully deletes the repository
+    """
     delete_repo("Group-13")
     path = Path('Group-13')
     assert path.exists() == False
 
-"""
-These tests checks if the correct exceptions are thrown when a faulty config file is used.
-"""
+
 def test_exception_installation():
+    """
+    This test checks if the correct exception is thrown when a faulty config file is used.
+    """
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
@@ -54,6 +60,9 @@ def test_exception_installation():
         codes = initialization(repo, branch, dir, config_file)
     
 def test_exception_unittest():
+    """
+    This test checks if the correct exception is thrown when a faulty config file is used.
+    """
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
@@ -62,6 +71,9 @@ def test_exception_unittest():
         codes = initialization(repo, branch, dir, config_file)
 
 def test_exception_buildandsyntax():
+    """
+    This test checks if the correct exception is thrown when a faulty config file is used.
+    """
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
@@ -70,6 +82,9 @@ def test_exception_buildandsyntax():
         codes = initialization(repo, branch, dir, config_file)
 
 def test_no_exception():
+    """
+    This test checks if the correct exception is thrown when a faulty config file is used.
+    """
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
