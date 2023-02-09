@@ -1,6 +1,23 @@
 # Assignment 2
 
-A simple CI.
+A simple CI written in python 3.8.10
+
+## Steps for TA to grade
+
+Steps 1-2 can be followed more thourghly through this [guide](https://phoenixnap.com/kb/install-flask).
+
+1. Install and set up a venv.
+
+2. Install flask.
+
+3. Clone the repo.
+
+4. Make a change on main or assessment, commit & push that change.
+
+5. Check your email connected to your Github account.
+
+6. If you get error 504 it is likely from the server being down, please try again later or ping us on canvas.
+
 
 ## How to install
 
@@ -15,7 +32,7 @@ Steps 1-2 can be followed more thourghly through this [guide](https://phoenixnap
 4. run flask on the file Flask_application.
 
 ```
-run flask
+flask run
 ```
 
 5. Take the localhost link given and run it through ngrok with 
