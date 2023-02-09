@@ -5,6 +5,7 @@ import pdb
 from flask import Flask
 import requests
 import mail
+from Flask_application import app
 
 """
 This tests if the cloning function works properly
@@ -203,4 +204,23 @@ def test_server_response():
 def test_server_invalid_data():
     response = requests.post("https://8cb3-2001-6b0-1-1041-b50e-adce-a282-b70e.eu.ngrok.io/payload",json = data_without_url)
     assert response.status_code == 400
-    
+
+@pytest.fixture()
+def client():
+    return app.test_client()
+
+def test_display_builds(client):
+    response = client.get("/build")
+    assert b"All builds:" in response.data
+    assert b"Build 1 can be found at " + ngrok_address + "/commits/1" in response.data
+
+
+def test_display_build_found(client):
+    response = client.get("/build/63e3a9ed97645c6e34ddd5ea")
+    assert b"Build successfull" in response.data
+    assert b"Commit 1 was built on: 12/12/12" in response.data
+
+
+def test_display_build_not_found(client):
+    response = client.get("/build/test100")
+    assert b"This build was not found" in response.data
