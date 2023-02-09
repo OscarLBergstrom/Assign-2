@@ -1,5 +1,8 @@
 from flask import Flask, jsonify, make_response, request
 from flask_mongoengine import MongoEngine
+from build_test import initialization
+from mail import notify_build_test
+from datetime import date
 
 app = Flask(__name__)
 ngrok_address = "https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
@@ -57,15 +60,30 @@ def recieve_post():
         data = request.json
         try:
             repo = data["repository"]
-            repo_name = repo["name"]
+            repo_name = repo["full_name"]
             ref = data["ref"]
+            dir = repo["name"]
             # Provides the name of the branch
             branch = ref[len("refs/heads/"):len(ref)]
+            config_file = "config_example.yml"  # change to config
 
             for commit in data["commits"]:
-                commit_url = commit["url"]
-                build(branch, repo_name)
-                test(commit_url)
+                commit_id = commit["id"]
+                print("commit id ", commit_id)
+                user_email = commit["author"]["email"]
+                print("email ", user_email)
+                results = initialization(repo_name, branch, dir, config_file)
+                print("results1 ", results)
+                # save in the database
+                try:
+                    result = GithubSchema(commit=str(commit_id), group=repo_name, build_date=str(date.today(
+                    )), log_test=str(results[0]), log_build=str(results[2]), log_installation=str(results[1]))
+                    result.save()
+                    print("results2 ", results)
+                except Exception as e:
+                    print(e)
+                # notify user of the result of the testing, compilation and installation
+                notify_build_test(user_email, results, commit_id)
         except:
             response = make_response("Fail")
             response.status_code = 400
