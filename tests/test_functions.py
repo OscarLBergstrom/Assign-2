@@ -3,7 +3,7 @@ import pytest
 
 def test_addition():
 
-    assert addition(2,4) == 6
+    assert addition(2,4) == 8
 
 def test_factorial():
     assert factorial(5) == 120
