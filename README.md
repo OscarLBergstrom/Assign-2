@@ -1,6 +1,6 @@
 # Assignment 2
 
-A simple CI.
+A simple CI written in python 3.8.10
 
 ## How to install
 
