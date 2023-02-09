@@ -1,6 +1,6 @@
 # Assignment 2
 
-A simple CI.
+A simple CI. 
 
 ## How to install
 
