@@ -36,8 +36,9 @@ def test_testing():
     """
     This tests if the automatic unit testing functionality is working.
     """
-    code = repo_test(['python', '-m', 'pytest'], "Group-13")
-    assert code == 2
+    res = repo_test(['python', '-m', 'pytest'], "Group-13")
+    exit_code = res[0]
+    assert exit_code == 2
 
 def test_delete_repo():
     """
@@ -90,13 +91,14 @@ def test_no_exception():
     dir = 'Group-13'
     config_file = 'yml_configs/config_example.yml'
     codes = initialization(repo, branch, dir, config_file)
+    codes = codes[:-1]  #to get rid of the log
     assert codes == (2, 0, 0)
    
 
 def test_generate_build_test_message_success():  #Test for correct message with all error codes correct
     user_email = "test@gmail.com"
     commit_id = "test_commit"   
-    result = [0,0,0]
+    result = [0,0,0, "test logs here"]
     message = mail.generate_build_test_message(user_email, result,commit_id)
     content = message.get_content()
     assert message["To"] == user_email
@@ -109,7 +111,7 @@ def test_generate_build_test_message_success():  #Test for correct message with 
 def test_generate_build_test_message_failed(): #Tests with every step failed
     user_email = "test@gmail.com"
     commit_id = "test_commit"  
-    result = [1,1,1]
+    result = [1,1,1, "test logs here"]
     message = mail.generate_build_test_message(user_email, result,commit_id)
     content = message.get_content()
     assert message["To"] == user_email
@@ -162,12 +164,12 @@ data_complete = {
     "url": "https://github.com/OscarLBergstrom/Assign-2/commit/7ce2a310efa9b56d54bb136e6961724eec1239ad",
     "author": {
         "name": "Felipe Oliver",
-        "email": "felioliver96@gmail.com",
+        "email": "gurra_bra@hotmail.com",
         "username": "Yatex"
     },
     "committer": {
         "name": "Felipe Oliver",
-        "email": "felioliver96@gmail.com",
+        "email": "gurra_bra@hotmail.com",
         "username": "Yatex"
     },
     "added": [
@@ -196,7 +198,7 @@ data_without_url = {
       },
       "committer": {
         "name": "Felipe Oliver",
-        "email": "felioliver96@gmail.com",
+        "email": "felioliver9666@gmail.com",
         "username": "Yatex"
       },
       "added": [
