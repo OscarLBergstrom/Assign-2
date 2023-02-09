@@ -149,11 +149,3 @@ def display_build(id):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-def build(branch, repo_name):
-    pass
-
-
-def test(data):
-    pass
