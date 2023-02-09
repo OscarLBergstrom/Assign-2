@@ -6,95 +6,92 @@ import requests
 import mail
 from Flask_application import app
 
-"""
-This tests if the cloning function works properly
-"""
-
 
 def test_clone_repo():
+    """
+    This tests if the cloning function works properly
+    """
     clone_repo("OscarLBergstrom/Group-13", "testfest")
     path = Path('Group-13')
     assert path.exists() == True
 
 
-"""
-This tests if installation of required libraries works properly
-"""
-
-
 def test_installation():
+    """
+    This tests if installation of required libraries works properly
+    """
     code = install_requirements(['pip', 'install', '-r'], "Group-13")
     assert code == 0
 
 
-"""
-This tests whether compilation/syntax testing is working properly
-"""
-
-
 def test_syntax():
+    """
+    This tests whether compilation/syntax testing is working properly
+    """
     code = run_command(['python', '-m', 'compileall'], "Group-13")
     assert code == 0
 
 
-"""
-This tests if the automatic unit testing functionality is working.
-"""
-
-
 def test_testing():
+    """
+    This tests if the automatic unit testing functionality is working.
+    """
     code = repo_test(['python', '-m', 'pytest'], "Group-13")
     assert code == 2
 
-
-"""
-This tests if the program successfully deletes the repository
-"""
-
-
 def test_delete_repo():
+    """
+    This tests if the program successfully deletes the repository
+    """
     delete_repo("Group-13")
     path = Path('Group-13')
     assert path.exists() == False
 
 
-"""
-These tests checks if the correct exceptions are thrown when a faulty config file is used.
-"""
-
-
 def test_exception_installation():
+    """
+    This test checks if the correct exception is thrown when a faulty config file is used.
+    """
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
-    config_file = 'config_example_noinstall.yml'
+    config_file = 'yml_configs/config_example_noinstall.yml'
     with pytest.raises(Exception):
         codes = initialization(repo, branch, dir, config_file)
 
 
 def test_exception_unittest():
+    """
+    This test checks if the correct exception is thrown when a faulty config file is used.
+    """
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
-    config_file = 'config_example_notest.yml'
+    config_file = 'yml_configs/config_example_notest.yml'
     with pytest.raises(Exception):
         codes = initialization(repo, branch, dir, config_file)
 
 
 def test_exception_buildandsyntax():
+    """
+    This test checks if the correct exception is thrown when a faulty config file is used.
+    """
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
-    config_file = 'config_example_nobuildandsyntax.yml'
+    config_file = 'yml_configs/config_example_nobuildandsyntax.yml'
     with pytest.raises(Exception):
         codes = initialization(repo, branch, dir, config_file)
 
 
 def test_no_exception():
+    """
+    This test checks if the correct exception is thrown when a faulty config file is used.
+    """
     repo = 'OscarLBergstrom/Group-13'
     branch = 'testfest'
     dir = 'Group-13'
-    config_file = 'config_example.yml'
+    config_file = 'yml_configs/config_example.yml'
     codes = initialization(repo, branch, dir, config_file)
     assert codes == (2, 0, 0)
 
@@ -240,12 +237,12 @@ def test_display_builds(client):
     response = client.get("/build")
     assert b"All builds:" in response.data
     ngrok_address = "https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
-    assert bytes("Build 1 can be found at " +
-                 ngrok_address + "/commits/1", "utf-8") in response.data
+    assert bytes("Build 63e4b8aeda0c14382f8ec65e can be found at " +
+                 ngrok_address + "/build/63e4b8aeda0c14382f8ec65e", "utf-8") in response.data
 
 
 def test_display_build_found(client):
-    response = client.get("/build/63e3a9ed97645c6e34ddd5ea")
+    response = client.get("/build/63e4b8aeda0c14382f8ec65e")
     assert b"Build successfull" in response.data
     assert b"Commit 1 was built on: 12/12/12" in response.data
 
