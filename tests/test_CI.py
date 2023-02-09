@@ -97,7 +97,7 @@ def test_generate_build_test_message_success():  #Test for correct message with 
     user_email = "test@gmail.com"
     commit_id = "test_commit"   
     result = [0,0,0]
-    message = mail.generate_build_test_message(user_email, result,commit_id)
+    message = notify.generate_build_test_message(user_email, result,commit_id)
     content = message.get_content()
     assert message["To"] == user_email
     assert message["Subject"] == "Result from group13CI"
@@ -110,7 +110,7 @@ def test_generate_build_test_message_failed(): #Tests with every step failed
     user_email = "test@gmail.com"
     commit_id = "test_commit"  
     result = [1,1,1]
-    message = mail.generate_build_test_message(user_email, result,commit_id)
+    message = notify.generate_build_test_message(user_email, result,commit_id)
     content = message.get_content()
     assert message["To"] == user_email
     assert message["Subject"] == "Result from group13CI"
