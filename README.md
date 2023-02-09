@@ -16,6 +16,8 @@ Steps 1-2 can be followed more thourghly through this [guide](https://phoenixnap
 
 5. Check your email connected to your Github account.
 
+6. If you get error 504 it is likely from the server being down, please try again later or ping us on canvas.
+
 
 ## How to install
 
