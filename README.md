@@ -1,5 +1,7 @@
 # Assignment 2
 
+A simple CI.
+
 ## How to install
 
 Steps 1-X can be followed more thourghly through this guide.
