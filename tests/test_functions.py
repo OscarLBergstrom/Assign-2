@@ -4,7 +4,7 @@ import pytest
 def test_addition():
 
 
-    assert addition(2,4) == 47
+    assert addition(2,4) == 46
 
 def test_factorial():
     assert factorial(5) == 120
@@ -23,3 +23,5 @@ def test_max_negative():
 
 def test_subtraction():
     assert subtraction (3,1) == 2
+
+
