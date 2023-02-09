@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, make_response, request
 from flask_mongoengine import MongoEngine
+from mail import notify_build_test
+from build_test import initialization
 
 app = Flask(__name__)
 
@@ -57,16 +59,25 @@ def recieve_post():
         data = request.json
         try:
             repo = data["repository"]
-            repo_name = repo["name"]
+            repo_name = repo["full_name"]
+            # print(repo_name)
             ref = data["ref"]
+            dir = repo["name"]
+            # print(dir)
             # Provides the name of the branch
             branch = ref[len("refs/heads/"):len(ref)]
+            config_file = "config.yml"
 
             for commit in data["commits"]:
-                commit_url = commit["url"]
-                build(branch, repo_name)
-                test(commit_url)
+                commit_id = commit["id"]
+                #commit_url = commit["url"]
+                user_email = commit["author"]["email"]
+                # print(user_email)
+                result = initialization(repo_name, branch, dir, config_file)
+                # print(result)
+                notify_build_test(user_email, result, commit_id)
         except:
+
             response = make_response("Fail")
             response.status_code = 400
             return response
