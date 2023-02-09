@@ -22,21 +22,30 @@ install_requirements
 This function installs the specified libraries from a requirements.txt file, the *command* to install the libraries is specified in the config.yml file.
 """
 def install_requirements(command, repo):
-    return subprocess.run(command + [repo + "/requirements.txt"]).returncode
+    try:
+        return subprocess.run(command + [repo + "/requirements.txt"]).returncode
+    except Exception:
+        return -2
 
 """
 run_command
 This function runs a command in the terminal
 """
 def run_command(command, repo):
-    return subprocess.run(command + [repo]).returncode
+    try:
+        return subprocess.run(command + [repo]).returncode
+    except Exception:
+        return -2
 
 """
 repo_test
 This function runs unit test in the /tests folder, the *command* used to run the tests is specified in the config.yml file.
 """
 def repo_test(command, repo):
-    return subprocess.run(command + [repo + "/tests"]).returncode
+    try:
+        return subprocess.run(command + [repo + "/tests"]).returncode
+    except Exception:
+        return 3
 
 """
 delete_repo
@@ -74,6 +83,7 @@ def initialization(repo, branch, dir, config_file):
             install_command = install.split()
             install_code = install_requirements(install_command, dir)
         else:
+            delete_repo(dir)
             raise Exception("Please enter requirements command in config file. ?")
         if not build == None:
             build_command = build.split()
@@ -82,11 +92,13 @@ def initialization(repo, branch, dir, config_file):
             syntax_command = syntax.split()
             build_code = run_command(syntax_command, dir)
         else:
+            delete_repo(dir)
             raise Exception("Please enter a build or syntax command in config file.")
         if not testing == None:
             testing_command = testing.split()
             test_code = repo_test(testing_command, dir)
         else:
+            delete_repo(dir)
             raise Exception("Please enter unit test command in config file.")
             
         
