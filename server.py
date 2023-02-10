@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config["MONGODB_HOST"] = "mongodb+srv://user123:Sommar13@cluster0.r1nafxc.mongodb.net/?retryWrites=true&w=majority"
 db = MongoEngine()
 db.init_app(app)
-ngrok_address = " https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
+ngrok_address = "https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
 
 
 class GithubSchema(db.Document):
