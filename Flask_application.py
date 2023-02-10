@@ -35,11 +35,6 @@ class GithubSchema(db.Document):
         }
 
 
-@app.route('/')
-def my_flask_application():
-    return 'Welcome to the worlds best CI!! :D assadsa'
-
-
 @app.route('/api/test', methods=['POST', 'GET'])
 def db_test():
     """
