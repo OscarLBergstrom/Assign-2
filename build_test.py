@@ -3,7 +3,7 @@ from pathlib import Path
 import yaml
 from yaml.loader import SafeLoader
 import pdb
-from mail import generate_build_test_message
+from notify import generate_build_test_message
 
 
 """
