@@ -151,22 +151,22 @@ def client():
 
 
 def test_display_builds(client):
-    response = client.get("/build")
-    assert b"All builds:" in response.data
+    response = requests.get("https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io/build")
+    assert b"All builds:" in response.content
     ngrok_address = "https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
     assert bytes("Build 63e4b8aeda0c14382f8ec65e of commit 1 can be found <a href=\"" + \
-            ngrok_address + "/build/63e4b8aeda0c14382f8ec65e\">here</a><br>", "utf-8") in response.data
+            ngrok_address + "/build/63e4b8aeda0c14382f8ec65e\">here</a><br>", "utf-8") in response.content
 
 
 def test_display_build_found(client):
-    response = client.get("/build/63e4b8aeda0c14382f8ec65e")
-    assert b"Build successfull" in response.data
-    assert b"Commit 1 was built on: 12/12/12" in response.data
+    response = requests.get("https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io/build/63e4b8aeda0c14382f8ec65e")
+    assert b"Build successfull" in response.content
+    assert b"Commit 1 was built on: 12/12/12" in response.content
 
 
 def test_display_build_not_found(client):
-    response = client.get("/build/test100")
-    assert b"This build was not found" in response.data
+    response = requests.get("https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io/build/test100")
+    assert b"This build was not found" in response.content
 
 
 # Json files for testing
