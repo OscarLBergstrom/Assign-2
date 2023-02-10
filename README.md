@@ -98,3 +98,4 @@ The team members know and trust each other. Throughout the past weeks the team m
 
 # What the team has done for P+
 For P+ the team has made sure to link all commits to an issue. We have also implemented version control for the CI.
+The link to all commits can be found at [https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io/build](https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io/build) which has the links to all the other builds
