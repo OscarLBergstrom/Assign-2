@@ -16,7 +16,7 @@ Steps 1-2 can be followed more thourghly through this [guide](https://phoenixnap
 
 5. Check your email connected to your Github account.
 
-6. If you get error 504 it is likely from the server being down, please try again later or ping us on canvas.
+6. If you get error 503 it is likely from the server being down, please try again later or ping us on canvas.
 
 
 ## How to install
@@ -67,7 +67,7 @@ python3 -m pytest
 
 # File structure
 
-The CI is in the file called Flask_application.py, the tests are in the folder tests. Test_CI.py tests the server and its responses to correct and incorrect payloads.
+The server is in the file called server.py. The build and testing part of the CI is in the file build_test.py. The tests are in the folder tests. Test_CI.py tests the entire CI including Server reponses, Building and Testing, and Notifications.
 
 # Statement of contribution
 
