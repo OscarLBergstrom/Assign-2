@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.config["MONGODB_HOST"] = "mongodb+srv://user123:Sommar13@cluster0.r1nafxc.mongodb.net/?retryWrites=true&w=majority"
 db = MongoEngine()
 db.init_app(app)
+ngrok_address = " https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
 
 
 class GithubSchema(db.Document):
@@ -32,7 +33,7 @@ class GithubSchema(db.Document):
             "log_test": self.log_test,
             "log_build": self.log_build,
             "log_installation": self.log_installation,
-            "test_logs" : self.test_logs
+            "test_logs": self.test_logs
         }
 
 
@@ -156,7 +157,7 @@ def display_build(id):
             response += "Tests successfull"
         else:
             response += "Tests failed"
-            response +="<br>-------<br>Test logs:<br>"+ build.test_logs +"<br>-------<br>"
+            response += "<br>-------<br>Test logs:<br>" + build.test_logs + "<br>-------<br>"
 
     else:
         response += "This build was not found"
