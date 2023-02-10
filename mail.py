@@ -21,17 +21,19 @@ def generate_build_test_message(user_email, result, commit_id):
     body += "Test: "
     if test_code == 0:
         body += "All test passed"
-    if test_code == 1:
-        body += "One or more test cases failed:\n"
-        body += result[3]
-    if test_code == 2:
-        body += "Excecution was interupted by user"
-    if test_code == 3:
-        body += "The program crashed when running the tests"
-    if test_code == 4:
-        body += "The config file is incorectly configured"
-    if test_code == 5:
-        body += "No tests where found"
+    else:
+        if test_code == 1:
+            body += "One or more test cases failed:\n"
+            body +="\n-------\nTest logs:\n"+ result[3]+"\n-------"
+        if test_code == 2:
+            body += "Excecution was interupted by user"
+        if test_code == 3:
+            body += "The program crashed when running the tests"
+        if test_code == 4:
+            body += "The config file is incorectly configured"
+        if test_code == 5:
+            body += "No tests where found"
+        
     body += "\nInstall: "
     if install_code == 0:
         body += "Install successfull"
