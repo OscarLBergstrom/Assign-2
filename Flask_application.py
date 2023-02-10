@@ -4,7 +4,6 @@ from mail import notify_build_test
 from build_test import initialization
 import requests
 from datetime import date
-import pdb
 
 app = Flask(__name__)
 ngrok_address = "https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
@@ -23,6 +22,7 @@ class GithubSchema(db.Document):
     log_test = db.StringField()
     log_build = db.StringField()
     log_installation = db.StringField()
+    test_logs = db.StringField()
 
     def to_json(self):
         return {
@@ -31,7 +31,8 @@ class GithubSchema(db.Document):
             "build_date": self.build_date,
             "log_test": self.log_test,
             "log_build": self.log_build,
-            "log_installation": self.log_installation
+            "log_installation": self.log_installation,
+            "test_logs" : self.test_logs
         }
 
 
@@ -90,7 +91,7 @@ def recieve_post():
                 # save in the database
                 try:
                     result = GithubSchema(commit=str(commit_id), group=repo_name, build_date=str(date.today(
-                    )), log_test=str(results[0]), log_build=str(results[2]), log_installation=str(results[1]))
+                    )), log_test=str(results[0]), log_build=str(results[2]), log_installation=str(results[1]), test_logs=results[3])
                     result.save()
                     print("results2 ", results)
                 except Exception as e:
@@ -156,6 +157,8 @@ def display_build(id):
             response += "Tests successfull"
         else:
             response += "Tests failed"
+            response +="<br>-------<br>Test logs:<br>"+ build.test_logs +"<br>-------<br>"
+
     else:
         response += "This build was not found"
     return response
