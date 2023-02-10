@@ -9,12 +9,14 @@ import pdb
 app = Flask(__name__)
 ngrok_address = "https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
 app.config["MONGODB_HOST"] = "mongodb+srv://user123:Sommar13@cluster0.r1nafxc.mongodb.net/?retryWrites=true&w=majority"
-
 db = MongoEngine()
 db.init_app(app)
 
 
 class GithubSchema(db.Document):
+    """
+    Schema for build results in the DB
+    """
     commit = db.StringField()
     group = db.StringField()
     build_date = db.StringField()
@@ -33,13 +35,13 @@ class GithubSchema(db.Document):
         }
 
 
-@app.route('/')
-def my_flask_application():
-    return 'Welcome to the worlds best CI!! :D assadsa'
-
-
 @app.route('/api/test', methods=['POST', 'GET'])
 def db_test():
+    """
+    Handles post and get request to the database.
+    For post it returns code 201 if the object was created.
+    For get it responds with json array containing all the objects in the database.
+    """
     if request.method == 'POST':
         try:
             result = GithubSchema(commit=request.get_json(force=True)["commit"], group=request.get_json(force=True)["group"], build_date=request.get_json(force=True)[
@@ -56,8 +58,21 @@ def db_test():
         return make_response(jsonify(result), 200)
 
 
+@app.route('/')
+def my_flask_application():
+    """
+    Home page
+    """
+    return 'Welcome to the worlds best CI!! :D'
+
+
 @app.route('/payload', methods=["POST"])
 def recieve_post():
+    """
+    Handles post requetst from github webhook.
+    Runs the tests and builds the commit's which are part of the push which caused the webhook to trigger.
+    Then sends a email with results to the user who did the commit. 
+    """
     if request.method == 'POST':
         data = request.json
         try:
@@ -68,7 +83,6 @@ def recieve_post():
             # Provides the name of the branch
             branch = ref[len("refs/heads/"):len(ref)]
             config_file = "config.yml"
-
             for commit in data["commits"]:
                 commit_id = commit["id"]
                 user_email = commit["author"]["email"]
