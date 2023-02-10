@@ -2,6 +2,8 @@ import subprocess
 from pathlib import Path
 import yaml
 from yaml.loader import SafeLoader
+import pdb
+from mail import generate_build_test_message
 
 
 """
@@ -43,7 +45,13 @@ This function runs unit test in the /tests folder, the *command* used to run the
 """
 def repo_test(command, repo):
     try:
-        return subprocess.run(command + [repo + "/tests"]).returncode
+       
+        process = subprocess.run(command + [repo + "/tests"], capture_output=True, text=True)
+        code = process.returncode
+        out = process.stdout
+        return (code, out)
+        #return subprocess.run(command + [repo + "/tests"]).returncode
+        
     except Exception:
         return 3
 
@@ -70,7 +78,7 @@ def initialization(repo, branch, dir, config_file):
     clone_repo(repo, branch)
     install_code = -1
     build_code = -1 
-    test_code = -1
+    test_res = (-1, "nodata")
     with open(config_file) as f:
         data = yaml.load(f, Loader=SafeLoader)
         
@@ -96,11 +104,12 @@ def initialization(repo, branch, dir, config_file):
             raise Exception("Please enter a build or syntax command in config file.")
         if not testing == None:
             testing_command = testing.split()
-            test_code = repo_test(testing_command, dir)
+            test_res = repo_test(testing_command, dir)
         else:
             delete_repo(dir)
             raise Exception("Please enter unit test command in config file.")
             
-        
+    test_code = test_res[0]
+    test_output = test_res[1]
     delete_repo(dir)
-    return test_code, install_code, build_code
+    return test_code, install_code, build_code, test_output
