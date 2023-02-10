@@ -122,9 +122,9 @@ def display_builds():
 
     for build in builds:
         build_id = str(build.id)
-
-        response += "Build " + build_id + " can be found at " + \
-            ngrok_address + "/build/" + build_id + "<br>"
+        commit_id = build.commit
+        response += "Build " + build_id + " of commit " + commit_id + " can be found <a href=\"" + \
+            ngrok_address + "/build/" + build_id + "\">here</a><br>"
     return response
 
 
@@ -157,7 +157,8 @@ def display_build(id):
             response += "Tests successfull"
         else:
             response += "Tests failed"
-            response += "<br>-------<br>Test logs:<br>" + build.test_logs + "<br>-------<br>"
+            if build.test_logs is not None:
+                response += "<br>-------<br>Test logs:<br>" + build.test_logs + "<br>-------<br>"
 
     else:
         response += "This build was not found"
