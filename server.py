@@ -122,9 +122,9 @@ def display_builds():
 
     for build in builds:
         build_id = str(build.id)
-
-        response += "Build " + build_id + " can be found at " + \
-            ngrok_address + "/build/" + build_id + "<br>"
+        commit_id = build.commit_id
+        response += "Build " + build_id + " of commit" + commit_id + " can be found <a href=\"" + \
+            ngrok_address + "/build/" + build_id + "\">here</a><br>"
     return response
 
 
