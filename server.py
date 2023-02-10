@@ -157,7 +157,8 @@ def display_build(id):
             response += "Tests successfull"
         else:
             response += "Tests failed"
-            response += "<br>-------<br>Test logs:<br>" + build.test_logs + "<br>-------<br>"
+            if build.test_logs is not None:
+                response += "<br>-------<br>Test logs:<br>" + build.test_logs + "<br>-------<br>"
 
     else:
         response += "This build was not found"
