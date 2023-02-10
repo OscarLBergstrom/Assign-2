@@ -3,8 +3,8 @@ from pathlib import Path
 from build_test import *
 from flask import Flask
 import requests
-import mail
-from Flask_application import app
+import notify
+from server import app
 
 
 def test_clone_repo():
@@ -39,6 +39,7 @@ def test_testing():
     res = repo_test(['python', '-m', 'pytest'], "Group-13")
     exit_code = res[0]
     assert exit_code == 2
+
 
 def test_delete_repo():
     """
@@ -94,15 +95,16 @@ def test_no_exception():
     dir = 'Group-13'
     config_file = 'yml_configs/config_example.yml'
     codes = initialization(repo, branch, dir, config_file)
-    codes = codes[:-1]  #to get rid of the log
+    codes = codes[:-1]  # to get rid of the log
     assert codes == (2, 0, 0)
 
 
 def test_generate_build_test_message_success():  # Test for correct message with all error codes correct
     user_email = "test@gmail.com"
+
     commit_id = "test_commit"
     result = [0, 0, 0, "test logs here"]
-    message = mail.generate_build_test_message(user_email, result, commit_id)
+    message = notify.generate_build_test_message(user_email, result, commit_id)
     content = message.get_content()
     assert message["To"] == user_email
     assert message["Subject"] == "Result from group13CI"
@@ -114,9 +116,9 @@ def test_generate_build_test_message_success():  # Test for correct message with
 def test_generate_build_test_message_failed():  # Tests with every step failed
     user_email = "test@gmail.com"
     commit_id = "test_commit"
-    test_logs =  "test logs here"
+    test_logs = "test logs here"
     result = [1, 1, 1, test_logs]
-    message = mail.generate_build_test_message(user_email, result, commit_id)
+    message = notify.generate_build_test_message(user_email, result, commit_id)
     content = message.get_content()
     assert message["To"] == user_email
     assert message["Subject"] == "Result from group13CI"
@@ -129,6 +131,7 @@ def test_generate_build_test_message_failed():  # Tests with every step failed
     assert "Install: Something went wrong in the installation step" in content
     assert "Build: Something went wrong in the build step" in content
     assert test_logs in content
+
 
 data_complete = {
     "repository": {

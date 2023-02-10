@@ -1,15 +1,16 @@
 from flask import Flask, jsonify, make_response, request
 from flask_mongoengine import MongoEngine
-from mail import notify_build_test
+from notify import notify_build_test
 from build_test import initialization
 import requests
 from datetime import date
 
 app = Flask(__name__)
-ngrok_address = "https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
+
 app.config["MONGODB_HOST"] = "mongodb+srv://user123:Sommar13@cluster0.r1nafxc.mongodb.net/?retryWrites=true&w=majority"
 db = MongoEngine()
 db.init_app(app)
+ngrok_address = "https://84f3-2001-6b0-1-1041-a45e-8a86-8385-da98.eu.ngrok.io"
 
 
 class GithubSchema(db.Document):
@@ -32,7 +33,7 @@ class GithubSchema(db.Document):
             "log_test": self.log_test,
             "log_build": self.log_build,
             "log_installation": self.log_installation,
-            "test_logs" : self.test_logs
+            "test_logs": self.test_logs
         }
 
 
@@ -93,7 +94,6 @@ def recieve_post():
                     result = GithubSchema(commit=str(commit_id), group=repo_name, build_date=str(date.today(
                     )), log_test=str(results[0]), log_build=str(results[2]), log_installation=str(results[1]), test_logs=results[3])
                     result.save()
-                    print("results2 ", results)
                 except Exception as e:
                     print(e)
                 # notify user of the result of the testing, compilation and installation
@@ -157,7 +157,7 @@ def display_build(id):
             response += "Tests successfull"
         else:
             response += "Tests failed"
-            response +="<br>-------<br>Test logs:<br>"+ build.test_logs +"<br>-------<br>"
+            response += "<br>-------<br>Test logs:<br>" + build.test_logs + "<br>-------<br>"
 
     else:
         response += "This build was not found"
@@ -165,4 +165,4 @@ def display_build(id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
